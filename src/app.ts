@@ -5,8 +5,21 @@ import http from 'http';
 import * as resolvers from './graphql/resolvers'
 
 const typeDefs = gql`
+  type Airport {
+    id: Int!
+    icao_code: String!
+    iata_code: String!
+    name: String!
+    city: String!
+    country: String!
+    altitude: Float!
+    lat_decimal: Float!
+    lon_decimal: Float!
+  }
+
   type Query {
     ping: String
+    airports(icao_code: String!): [Airport]
   }
 `
 
