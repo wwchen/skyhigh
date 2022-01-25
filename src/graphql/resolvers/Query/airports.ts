@@ -1,17 +1,12 @@
+import { Op, Sequelize } from "sequelize";
 import { Airport } from "../../../db/models/airport";
 
 type Args = {
-  icao_code: string
+  lat: number
+  lng: number
+  radius: number
 }
 
-type Context = {
-  models: any
-}
-
-export default function airports(parent: unknown, { icao_code }: Args, { models }: Context): Promise<Airport[]> {
-  console.log('hello');
-  console.log(icao_code);
-  console.log(typeof (models));
-  const a = Airport.findAll({ where: { icao_code } })
-  return a;
+export default function airports(parent: unknown, { lat, lng, radius }: Args): Promise<Airport[]> {
+  return Airport.findAll({ where: { lon_decimal: { [Op.lte]: lat + 1, [Op.gte]: lat - 1 } } })
 }
