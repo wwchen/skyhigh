@@ -17,10 +17,17 @@ const typeDefs = gql`
     lon_decimal: Float!
   }
 
+  type User {
+    id: Int!
+    firstName: String
+    lastName: String
+  }
+
   type Query {
     ping: String
     airport(icao_code: String!): Airport
     airports(lat: Float!, lng: Float!, radius: Int!): [Airport]
+    user: User
   }
 `
 
@@ -38,6 +45,7 @@ async function startApolloServer(config: Config<ExpressContext>): Promise<Apollo
   await new Promise(resolve => httpServer.listen({ port }, resolve));
   console.log(`🚀 Running app in ${app.get('env')} env`);
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+
   return server;
 }
 

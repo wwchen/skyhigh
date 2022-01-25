@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "tsc && node dist/app.js",
+    "migrate": "tsc && node dist/db/migration/airport.js",
     "lint": "eslint . --ext .ts",
     "postinstall": "tsc"
   },
