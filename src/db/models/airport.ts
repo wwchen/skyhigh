@@ -3,8 +3,7 @@ import {
   HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin, Model,
   ModelDefined, Optional, Sequelize
 } from "sequelize";
-
-const sequelize = new Sequelize("sqlite://global_airports_sqlite.db");
+import { sqlite } from "../connection";
 
 /*
              (
@@ -164,7 +163,7 @@ Airport.init({
   },
 }, {
   // Other model options go here
-  sequelize, // We need to pass the connection instance
+  sequelize: sqlite, // We need to pass the connection instance
   modelName: 'Airport', // We need to choose the model name
   tableName: 'Airports',
   timestamps: false,
