@@ -19,7 +19,8 @@ const typeDefs = gql`
 
   type Query {
     ping: String
-    airports(icao_code: String!): [Airport]
+    airport(icao_code: String!): Airport
+    airports(lat: Float!, lng: Float!, radius: Int!): [Airport]
   }
 `
 
@@ -33,7 +34,8 @@ async function startApolloServer(config: Config<ExpressContext>): Promise<Apollo
 
   await server.start();
   server.applyMiddleware({ app });
-  await new Promise(resolve => httpServer.listen({ port: 4000 }, resolve));
+  const port = process.env.PORT || 3000;
+  await new Promise(resolve => httpServer.listen({ port }, resolve));
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
   return server;
 }
